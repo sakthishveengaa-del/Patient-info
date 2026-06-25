@@ -1,23 +1,56 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Fade from "@mui/material/Fade";
 import Header from "../../components/Header/Header";
 import CustomButton from "../../components/CustomButton/CustomButton";
+import CustomFileUploader from "../../components/CustomFileUploader/CustomFileUploader";
+import { UploadCard } from "../../components/UploadCard/UploadCard";
 import { useProgress } from "../../context/ProgressContext";
+import { useForm } from "../../context/FormProvider";
+import { PillIcon, BeakerIcon, ScanIcon, DocIcon } from "./components/DocumentIcons";
 import "./HealthRecords.scss";
 
 // ==========================================
 // Component: HealthRecords
-// Description: Renders the Health Records page with only the title and navigation actions
+// Description: Renders the Health Records page with uploader, supported documents, and navigation actions
 // ==========================================
 const HealthRecords = () => {
   const navigate = useNavigate();
   const { setProgress } = useProgress();
+  const { formData, setFormData } = useForm();
 
-  // Keep progress baseline to 60% for this step
+  // Local state for uploaded health record files, initialized from context
+  const [files, setFiles] = useState(formData.healthRecords || []);
+
+  // Keep progress baseline to 75% complete for this step to match mockup
   useEffect(() => {
-    setProgress(60);
+    setProgress(75);
   }, [setProgress]);
+
+  const handleFileChange = (newFiles) => {
+    let updated;
+    if (Array.isArray(newFiles)) {
+      updated = [...files, ...newFiles];
+    } else if (newFiles) {
+      updated = [...files, newFiles];
+    }
+    if (updated) {
+      setFiles(updated);
+      setFormData((prev) => ({
+        ...prev,
+        healthRecords: updated
+      }));
+    }
+  };
+
+  const handleRemoveFile = (index) => {
+    const updated = files.filter((_, i) => i !== index);
+    setFiles(updated);
+    setFormData((prev) => ({
+      ...prev,
+      healthRecords: updated
+    }));
+  };
 
   const handleSkip = () => {
     navigate("/review-complete");
@@ -35,13 +68,61 @@ const HealthRecords = () => {
     <Fade in={true} timeout={400}>
       <div className="health-records-page">
         <Header
-          title="Health Records"
-          subtitle="Upload and manage your medical records, prescriptions, and lab reports for a complete digital health history."
+          title="Upload Health Records"
+          subtitle="Keep all your medical documents in one secure and convenient place."
         />
 
         <div className="info-form" style={{ marginTop: "40px" }}>
+          <div className="form-stack">
+            <CustomFileUploader
+              label="Upload your health records"
+              value={null}
+              onChange={handleFileChange}
+              multiple={true}
+              maxSize={20 * 1024 * 1024} // 20MB
+              maxSizeLabel="Max. 20MB"
+              placeholderText="rag and drop your health records here, or"
+              infoText=""
+            />
+
+            {files.length > 0 && (
+              <div className="upload-cards-container">
+                {files.map((file, idx) => (
+                  <UploadCard
+                    key={idx}
+                    file={file}
+                    onRemove={() => handleRemoveFile(idx)}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Supported Documents Section */}
+            <div className="supported-docs-section">
+              <div className="supported-title">Supported Documents</div>
+              <div className="supported-list">
+                <div className="supported-item">
+                  <PillIcon className="supported-icon" />
+                  <span>Prescription</span>
+                </div>
+                <div className="supported-item">
+                  <BeakerIcon className="supported-icon" />
+                  <span>Lab reports</span>
+                </div>
+                <div className="supported-item">
+                  <ScanIcon className="supported-icon" />
+                  <span>Scan</span>
+                </div>
+                <div className="supported-item">
+                  <DocIcon className="supported-icon" />
+                  <span>Discharge summary</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Action Buttons */}
-          <div className="form-actions" style={{ borderTop: "none", marginTop: "0" }}>
+          <div className="form-actions" style={{ borderTop: "none", marginTop: "40px" }}>
             <button type="button" className="btn-skip" onClick={handleSkip}>
               Skip for now
             </button>

@@ -48,7 +48,9 @@ const CustomFileUploader = ({
   maxSize = 5 * 1024 * 1024, // 5MB in bytes
   infoText = "Make sure the card is clear and all details are visible",
   className = "",
-  multiple = false
+  multiple = false,
+  placeholderText = "Drag and drop your health records here, or",
+  maxSizeLabel = "Max. 5MB"
 }) => {
   // Local State: tracks whether a file is currently being dragged over the uploader area
   const [dragActive, setDragActive] = useState(false);
@@ -192,13 +194,13 @@ const CustomFileUploader = ({
               <CloudUploadIcon />
             </div>
             <div className="upload-text-row">
-              Drag and drop your health records here, or
+              {placeholderText}
               <br />
               <span className="browse-link" onClick={(e) => { e.stopPropagation(); triggerInput(); }}>
                 browse
               </span>
             </div>
-            <div className="upload-subtext">JPG, PNG or PDF (Max. 5MB)</div>
+            <div className="upload-subtext">JPG, PNG or PDF ({maxSizeLabel})</div>
           </div>
         ) : (
           // File uploaded state
