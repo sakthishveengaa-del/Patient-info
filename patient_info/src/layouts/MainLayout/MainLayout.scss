@@ -1,0 +1,35 @@
+@use "../../styles/global.scss" as *;
+
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: $bg-body;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+.content {
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 32px 48px;
+  background-color: $bg-main;
+  display: flex;
+  flex-direction: column;
+  
+  @media (max-width: 1024px) {
+    padding: 24px 32px;
+  }
+  
+  @media (max-width: 768px) {
+    height: auto;
+    overflow: visible;
+    padding: 24px 20px;
+  }
+}

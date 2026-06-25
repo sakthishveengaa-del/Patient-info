@@ -1,0 +1,118 @@
+@use "../../styles/global.scss" as *;
+
+.personal-info-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+
+  .info-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  // 2-Column Form Layout
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 48px;
+    margin-bottom: 20px;
+
+    @media (max-width: 1024px) {
+      gap: 18px 32px;
+    }
+
+    @media (max-width: 960px) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+
+  .form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; // Spacing between individual fields
+    
+    @media (max-width: 960px) {
+      gap: 16px;
+    }
+  }
+
+  // Banner row to align required warning banner under the first column
+  .banner-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 20px;
+
+    @media (max-width: 1024px) {
+      gap: 32px;
+    }
+
+    @media (max-width: 960px) {
+      grid-template-columns: 1fr;
+      margin-bottom: 16px;
+    }
+  }
+
+  // Required fields warning banner
+  .required-fields-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #fafafa;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 14px;
+    animation: fadeIn 0.4s ease;
+
+    .asterisk {
+      color: $error-color;
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .banner-text {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: $secondary-text;
+    }
+  }
+
+  // Action button alignment
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid transparent; // spacing spacer
+
+    @media (max-width: 640px) {
+      justify-content: center;
+      width: 100%;
+      
+      .custom-btn {
+        width: 100%; // Make button full-width on mobile
+      }
+    }
+  }
+
+  // Special Phone input styling: grey background by default (when empty/not focused)
+  .phone-input-field {
+    .input-field {
+      background-color: #f2f2f2 !important; // Forced soft light grey background to override default white styles
+
+      &:focus {
+        background-color: #ffffff !important;
+      }
+
+      &:not(:placeholder-shown) {
+        background-color: #ffffff !important;
+      }
+    }
+  }
+}

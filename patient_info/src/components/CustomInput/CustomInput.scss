@@ -1,0 +1,230 @@
+@use "sass:color";
+@use "../../styles/global.scss" as *;
+
+.custom-input-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  animation: fadeIn 0.4s ease;
+  position: relative;
+  z-index: 1;
+
+  &.has-open-dropdown {
+    z-index: 100;
+  }
+
+  .custom-input-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: $primary-text;
+    margin-bottom: 6px;
+    display: inline-block;
+
+    .required-asterisk {
+      color: $error-color;
+      font-weight: 700;
+    }
+  }
+
+  .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .input-icon-left {
+      position: absolute;
+      left: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $muted-text;
+      pointer-events: none;
+      transition: color 0.2s ease;
+      z-index: 3;
+
+      .icon {
+        font-size: 1.25rem;
+      }
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 11px 14px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: $primary-text;
+      background-color: #ffffff;
+      border: 1.5px solid $border-color;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+
+      &::placeholder {
+        color: $muted-text;
+        font-weight: 400;
+      }
+
+      &.with-icon {
+        padding-left: 42px;
+      }
+
+      &.with-suffix {
+        padding-right: 74px;
+      }
+
+      &:hover:not(:disabled):not([readonly]) {
+        border-color: color.adjust($border-color, $lightness: -12%);
+      }
+
+      &:focus:not(:disabled):not([readonly]) {
+        border-color: $border-focus;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.08);
+      }
+
+      &:disabled, &[readonly] {
+        background-color: #f3f4f6;
+        border-color: $border-color;
+        color: $secondary-text;
+        cursor: not-allowed;
+        
+        & ~ .input-icon-left {
+          color: $muted-text;
+        }
+      }
+    }
+
+    .input-suffix {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding-right: 14px;
+      padding-left: 14px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: $secondary-text;
+      font-size: 0.88rem;
+      font-weight: 500;
+      pointer-events: none;
+      z-index: 5;
+
+      &.clickable {
+        pointer-events: auto;
+        cursor: pointer;
+        user-select: none;
+
+        &:hover, &.is-active {
+          color: $primary-color;
+
+          .suffix-icon {
+            color: $primary-color;
+          }
+        }
+      }
+
+      .suffix-icon {
+        font-size: 1.1rem;
+        color: $muted-text;
+        transition: transform 0.2s ease, color 0.2s ease;
+
+        &.rotated {
+          transform: rotate(180deg);
+        }
+      }
+
+      .suffix-text {
+        font-size: 0.88rem;
+        font-weight: 500;
+      }
+
+      // Suffix Dropdown Menu Container matching CustomSelect menu
+      .suffix-dropdown-menu {
+        position: absolute;
+        top: 100%;
+        right: 14px;
+        min-width: 70px;
+        background-color: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        margin-top: 6px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        z-index: 999;
+        overflow: hidden;
+        animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      // Suffix Dropdown Item styles matching CustomSelect items
+      .suffix-dropdown-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        color: #4b5563;
+        font-size: 0.88rem;
+        font-weight: 500;
+        border-left: 3px solid transparent; // prevents layout shift
+        transition: all 0.2s ease;
+        border-bottom: 1px solid #f3f4f6;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:hover, &.selected {
+          background-color: $primary-light; // soft teal tint background
+          color: $primary-color; // teal text
+          border-left: 3px solid $primary-color; // vertical indicator line on left
+          font-weight: 600;
+        }
+      }
+    }
+
+    // Special treatment for calendar indicator in date picker
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+      
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  // Focus-within styles for icon glow
+  .input-container:focus-within {
+    .input-icon-left {
+      color: $primary-color;
+    }
+  }
+
+  // Error States
+  &.has-error {
+    .input-field {
+      border-color: $error-color;
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.08);
+      
+      &:focus {
+        box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12);
+      }
+    }
+    
+    .input-icon-left {
+      color: $error-color !important;
+    }
+
+    .error-message {
+      color: $error-color;
+      font-size: 0.78rem;
+      font-weight: 500;
+      margin-top: 5px;
+      animation: fadeIn 0.2s ease;
+    }
+  }
+}

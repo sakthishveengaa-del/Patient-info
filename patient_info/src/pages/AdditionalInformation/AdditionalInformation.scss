@@ -1,0 +1,154 @@
+@use "../../styles/global.scss" as *;
+
+.additional-info-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+
+  .info-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  // 2-Column Form Layout matching PersonalInformation
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 48px;
+    margin-bottom: 30px;
+
+    @media (max-width: 1024px) {
+      gap: 18px 32px;
+    }
+
+    @media (max-width: 960px) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+  }
+
+  .form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media (max-width: 960px) {
+      gap: 16px;
+    }
+  }
+
+  // Warning Required Fields Banner
+  .banner-row {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .required-fields-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #fafafa;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 14px;
+    animation: fadeIn 0.4s ease;
+
+    .asterisk {
+      color: $error-color;
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .banner-text {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: $secondary-text;
+    }
+  }
+
+  // Action button alignment: Skip on left, Go Back and submit on right
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid transparent; // spacing spacer
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      gap: 16px;
+      width: 100%;
+      
+      .btn-skip, 
+      .right-actions,
+      .right-actions .custom-btn {
+        width: 100%;
+      }
+    }
+  }
+
+  .right-actions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      gap: 12px;
+      width: 100%;
+    }
+  }
+
+  // Skip for now button: Light green-tinted background, dark green/teal text
+  .btn-skip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 22px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: #e8f4f1; // Soft green/teal tint background
+    color: $primary-color; // Premium deep teal/green
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+
+    &:hover {
+      background-color: rgba(13, 122, 95, 0.14);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(13, 122, 95, 0.06);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+  }
+
+  // Go Back button: Text link style
+  .btn-back {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #111827; // Slate-900 matching mockup text color
+    cursor: pointer;
+    padding: 8px 12px;
+    transition: all 0.2s ease;
+    outline: none;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}

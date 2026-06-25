@@ -1,0 +1,193 @@
+@use "../../styles/global.scss" as *;
+
+.health-records-page {
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+
+  @media (max-width: 768px) {
+    padding: 20px 16px;
+  }
+
+  .info-form {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+    .form-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      flex-grow: 1;
+      max-width: 1000px;
+    }
+  }
+
+  .supported-docs-section {
+    margin-top: 16px;
+
+    .supported-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 12px;
+    }
+
+    .supported-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .supported-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background-color: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #4b5563;
+
+      .chip-icon {
+        color: #9ca3af;
+      }
+    }
+  }
+
+  .uploaded-cards-section {
+    margin-top: 16px;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .cards-scroll-container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scroll-behavior: smooth;
+      width: 100%;
+
+      /* Hide scrollbar for standard browsers */
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Custom Scrollbar Controller matching reference */
+    .custom-scroll-controller {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 8px;
+      width: 100%;
+
+      .scroll-btn {
+        background: none;
+        border: none;
+        font-size: 0.75rem;
+        color: #9ca3af;
+        cursor: pointer;
+        padding: 4px 8px;
+        transition: color 0.2s;
+        outline: none;
+
+        &:hover {
+          color: #374151;
+        }
+      }
+
+      .scroll-track {
+        flex: 1;
+        max-width: 400px;
+        height: 6px;
+        background-color: #e5e7eb;
+        border-radius: 3px;
+        position: relative;
+        overflow: hidden;
+
+        .scroll-thumb {
+          position: absolute;
+          top: 0;
+          height: 100%;
+          width: 80px;
+          background-color: #9ca3af;
+          border-radius: 3px;
+          transition: left 0.1s ease;
+        }
+      }
+    }
+  }
+
+  // Form actions
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid $border-color;
+    max-width: 800px;
+
+    .btn-skip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 22px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background-color: #e8f4f1; // Soft green/teal tint background
+      color: $primary-color; // Premium deep teal/green
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      outline: none;
+
+      &:hover {
+        background-color: rgba(13, 122, 95, 0.14);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(13, 122, 95, 0.06);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+    }
+
+    .right-actions {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+
+      .btn-back {
+        background: none;
+        border: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #111827; // Slate-900 matching mockup text color
+        cursor: pointer;
+        padding: 8px 12px;
+        transition: all 0.2s ease;
+        outline: none;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}

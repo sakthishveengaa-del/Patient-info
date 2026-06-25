@@ -1,0 +1,89 @@
+// Global Variables & Design Tokens
+$primary-color: #0d7a5f;      // Premium deep teal/green
+$primary-light: #e6f4ea;      // Soft light green background
+$primary-hover: #095945;      // Darker teal for hover states
+$primary-text: #111827;       // Slate-900 for high-contrast headers
+$secondary-text: #4b5563;     // Gray-600 for body text
+$muted-text: #9ca3af;         // Gray-400 for placeholders and disabled icons
+$border-color: #e5e7eb;       // Gray-200 for clean subtle borders
+$border-focus: #10b981;       // Medium green for focus states
+$bg-main: #ffffff;
+$bg-sidebar: #f9fafb;         // Warm off-white sidebar background
+$bg-body: #ffffff;
+$error-color: #dc2626;        // Refined error red
+$error-bg: #fff5f5;           // Extremely light red for banners
+$error-border: #fca5a5;       // Light red border for validation summary
+
+// Reset & Base Layout
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: $bg-body;
+  color: $secondary-text;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  height: 100vh;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+#root {
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+// Global Custom Scrollbar (Premium design)
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 99px;
+  
+  &:hover {
+    background: rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Fade in animation helper
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

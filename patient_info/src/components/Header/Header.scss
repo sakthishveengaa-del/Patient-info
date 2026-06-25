@@ -1,0 +1,106 @@
+@use "../../styles/global.scss" as *;
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  width: 100%;
+  animation: fadeIn 0.4s ease;
+
+  @media (max-width: 768px) {
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+}
+
+.header-text {
+  flex: 1;
+  max-width: 600px;
+
+  .header-title {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: $primary-text;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+
+    @media (max-width: 768px) {
+      font-size: 1.45rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.3rem;
+    }
+  }
+
+  .header-subtitle {
+    font-size: 0.92rem;
+    font-weight: 400;
+    color: #6b7280; // Soft gray matching the design crop exactly
+    line-height: 1.5;
+
+    @media (max-width: 768px) {
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 0.82rem;
+    }
+  }
+}
+
+.header-support {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 4px 8px;
+
+  @media (max-width: 640px) {
+    align-self: flex-start;
+  }
+
+  .support-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: $muted-text;
+  }
+
+  .support-icon {
+    font-size: 1.4rem;
+  }
+
+  .support-details {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+
+    .support-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: $secondary-text;
+    }
+
+    .support-link {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: $primary-color;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $primary-hover;
+      }
+    }
+  }
+}

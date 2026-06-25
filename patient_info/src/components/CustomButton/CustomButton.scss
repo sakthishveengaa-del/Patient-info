@@ -1,0 +1,43 @@
+@use "../../styles/global.scss" as *;
+
+.custom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 22px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #f3f4f6;
+  color: $muted-text;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+  // Enabled, primary theme styling
+  &:not(:disabled) {
+    background-color: $primary-color;
+    color: #ffffff;
+    
+    &:hover {
+      background-color: $primary-hover;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(13, 122, 95, 0.2);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 4px rgba(13, 122, 95, 0.1);
+    }
+  }
+
+  // Disabled styling
+  &:disabled {
+    background-color: #f3f4f6;
+    color: $muted-text;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
