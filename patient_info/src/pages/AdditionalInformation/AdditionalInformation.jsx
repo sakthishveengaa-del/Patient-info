@@ -4,7 +4,7 @@ import Fade from "@mui/material/Fade";
 
 import Header from "../../components/Header/Header";
 import CustomButton from "../../components/CustomButton/CustomButton";
-import { useProgress } from "../../context/ProgressContext";
+import { useProgress, calculateRegistrationProgress } from "../../context/ProgressContext";
 import { useForm } from "../../context/FormProvider";
 import { LeftColumn } from "./components/LeftColumn";
 import { RightColumn } from "./components/RightColumn";
@@ -39,17 +39,10 @@ const AdditionalInformation = () => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
-  // Effect: Calculate progress (starts at 10% baseline, scales up to 30%)
+  // Effect: Calculate progress
   useEffect(() => {
-    const progressFields = [
-      "height", "weight", "bloodPressure", "bloodSugar", "activityLevel",
-      "dietaryPreference", "smokingStatus", "alcoholConsumption",
-      "emergencyRelationship", "emergencyNumber"
-    ];
-    const filledCount = progressFields.filter(f => form[f] && form[f].toString().trim() !== "").length;
-    const calculatedProgress = 10 + Math.round((filledCount / progressFields.length) * 20);
-    setProgress(calculatedProgress);
-  }, [form, setProgress]);
+    setProgress(calculateRegistrationProgress(formData, form, "AdditionalInformation"));
+  }, [formData, form, setProgress]);
 
   // Handler: Runs whenever any input or dropdown value changes
   const handleChange = (e) => {
@@ -66,6 +59,9 @@ const AdditionalInformation = () => {
       if (name === "weightUnit") validateField("weight", updatedForm);
       return updatedForm;
     });
+
+    // Log user input change
+    console.log("[Form Input Change] Field: " + name + ", Value: " + finalValue);
 
     setTouched((prev) => {
       const updatedTouched = { ...prev, [name]: true };
@@ -121,7 +117,20 @@ const AdditionalInformation = () => {
     if (validateForm()) {
       const updatedData = { ...formData, ...form };
       setFormData(updatedData);
-      console.log("=== Additional Information Form Submission ===", form);
+      
+      console.log("=== Additional Information Form Submission ===");
+      console.log("Height: " + form.height + " " + form.heightUnit);
+      console.log("Weight: " + form.weight + " " + form.weightUnit);
+      console.log("Blood Pressure: " + (form.bloodPressure || "N/A"));
+      console.log("Blood Sugar: " + (form.bloodSugar || "N/A"));
+      console.log("Activity Level: " + (form.activityLevel || "N/A"));
+      console.log("Dietary Preference: " + (form.dietaryPreference || "N/A"));
+      console.log("Smoking Status: " + (form.smokingStatus || "N/A"));
+      console.log("Alcohol Consumption: " + (form.alcoholConsumption || "N/A"));
+      console.log("Emergency Relationship: " + form.emergencyRelationship);
+      console.log("Emergency Number: " + form.emergencyNumber);
+      console.log("===========================================");
+      
       navigate("/medical-history");
     }
   };

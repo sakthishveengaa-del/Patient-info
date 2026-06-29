@@ -1,201 +1,344 @@
 @use "../../styles/global.scss" as *;
 
-.account-created-page {
-  padding: 40px;
+.account-created-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100%;
-  background-color: #ffffff;
-  overflow-y: auto;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #F4F4F4; // Light gray background as requested
+  padding: 24px 16px;
+  box-sizing: border-box;
+  overflow-y: auto; // enable vertical scrollbar when card overflows screen height
 
-  @media (max-width: 768px) {
-    padding: 20px 16px;
-  }
-
-  .success-card {
-    max-width: 500px;
-    width: 100%;
-    background-color: #ffffff;
-    border: 1px solid $border-color;
-    border-radius: 12px;
-    padding: 48px 32px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+  .created-content-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    margin: auto 0; // vertical centering that allows top/bottom scrolling on overflow!
+    width: 100%;
+    max-width: 400px; // Reduced from 440px to make overall layout smaller
+  }
 
-    @media (max-width: 768px) {
-      padding: 32px 20px;
+  .created-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px; // Further increased logo width
+    height: 84px; // Further increased logo height proportionally
+    margin-bottom: 12px; // Reduced gap
+    align-self: flex-start; // Align to the left side of the card!
+    margin-left: -72px; // Shift further leftwards to match larger size
+
+    @media (max-width: 480px) {
+      align-self: center; // Center on very narrow mobile screens
+      margin-left: 0;
     }
 
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background-color: $primary-color;
+    .logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
 
-  .celebration-wrapper {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    color: #f59e0b; // Amber color for celebration icon
-    opacity: 0.85;
+  // Frame 1109 - Made more compact (Konjam chinnathu)
+  .success-card-frame {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px; // Reduced from 32px
+    gap: 20px; // Reduced from 24px
+    width: 100%; // Fill the content wrapper (400px)
+    height: auto; // Allow card to grow to enclose elements perfectly
+    min-height: 520px; // Reduced from 580px
+    background: #FFFFFF; // Figma background: #FFFFFF
+    border: 0.5px solid #D0D0D0; // Figma border: 0.5px solid #D0D0D0
+    box-shadow: 0px 8px 8px rgba(164, 164, 164, 0.07), 0px 4px 4px rgba(164, 164, 164, 0.07), 0px 2px 2px rgba(164, 164, 164, 0.07), 0px 1px 1px rgba(164, 164, 164, 0.07);
+    border-radius: 16px; // Adjusted border radius
 
-    .celebration-icon {
-      font-size: 1.8rem;
+    @media (max-width: 480px) {
+      padding: 20px 12px;
+      gap: 16px;
     }
   }
 
-  .success-icon-wrapper {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: $primary-light;
+  // material-symbols:verified-rounded
+  .success-badge-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $primary-color;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 14px rgba(13, 122, 95, 0.1);
+    width: 64px; // Scaled down from 80px
+    height: 64px; // Scaled down from 80px
+    border-radius: 100px;
+    background: transparent;
 
-    .success-icon {
-      font-size: 3.2rem;
+    .success-badge-icon {
+      font-size: 64px !important; // Match material checkmark design
+      color: #096B58 !important; // Figma background/color: #096B58
+      width: 64px !important;
+      height: 64px !important;
     }
   }
 
-  .success-title {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: $primary-text;
-    margin-bottom: 12px;
-    letter-spacing: -0.02em;
-  }
-
-  .success-subtitle {
-    font-size: 0.92rem;
-    color: $secondary-text;
-    line-height: 1.5;
-    margin-bottom: 32px;
-    max-width: 380px;
-  }
-
-  .success-details-box {
-    width: 100%;
-    background-color: #f9fafb;
-    border: 1px dashed $border-color;
-    border-radius: 8px;
-    padding: 16px 20px;
-    margin-bottom: 36px;
+  // Frame 1000005854
+  .success-message-block {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    padding: 0px;
+    gap: 6px;
+    width: 100%;
+    max-width: 100%;
 
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-    }
-
-    .summary-label {
-      font-size: 0.8rem;
+    .success-heading-title {
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal;
       font-weight: 600;
-      color: #6b7280;
+      font-size: 18px; // Reduced from 20px
+      line-height: 24px;
+      text-align: center;
+      color: #141414;
+      margin: 0;
     }
 
-    .summary-value {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: $primary-text;
-
-      &.highlight {
-        font-family: monospace;
-        letter-spacing: 0.05em;
-        background-color: #f3f4f6;
-        padding: 2px 6px;
-        border-radius: 4px;
-      }
-
-      &.active-badge {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: $primary-color;
-        background-color: $primary-light;
-        padding: 4px 10px;
-        border-radius: 100px;
-      }
+    .success-heading-subtitle {
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 11px; // Reduced from 12px
+      line-height: 15px;
+      text-align: center;
+      color: #666666;
+      width: 260px; // Reduced from 278px
+      margin: 0;
     }
   }
 
-  .success-actions {
+  // InputField Unique ID block
+  .unique-id-input-field {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    padding: 0px;
+    gap: 6px;
     width: 100%;
+    position: relative;
 
-    @media (min-width: 600px) {
-      flex-direction: row;
-      gap: 16px;
-      justify-content: center;
-
-      .btn-view-profile,
-      .btn-dashboard {
-        width: auto;
-        min-width: 160px;
-      }
+    .unique-id-label {
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px; // Reduced from 14px
+      line-height: 16px;
+      color: #202020;
     }
 
-    .btn-view-profile {
-      background-color: #e8f4f1 !important; // Soft green/teal tint background
-      color: $primary-color !important; // Premium deep teal/green
-      box-shadow: none !important;
+    // Frame 1000005850
+    .unique-id-badge-box {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 0px;
+      width: 210px; // Reduced from 242px
+      height: 48px; // Reduced from 56px
+      border: 0.5px solid #D0D0D0;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #FFFFFF;
+      transition: all 0.2s ease;
 
       &:hover {
-        background-color: rgba(13, 122, 95, 0.14) !important;
-        transform: translateY(-1px) !important;
-        box-shadow: 0 4px 10px rgba(13, 122, 95, 0.06) !important;
-      }
-
-      &:active {
-        transform: translateY(0) !important;
-        box-shadow: none !important;
+        border-color: #096B58;
       }
     }
 
-    .btn-dashboard {
+    // Frame 1000005851
+    .prefix-box-pat {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 6px;
+      width: 42px; // Reduced from 47px
+      height: 48px;
+      background: #FBFBFB;
+      border-right: 0.5px solid #D0D0D0;
+      box-sizing: border-box;
+      font-family: 'General Sans Variable', sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px; // Reduced from 16px
+      line-height: 20px;
+      color: #202020;
+    }
+
+    // Frame 1000005852
+    .suffix-chars-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 6px 6px 6px 0px;
+      gap: 10px;
+      width: 168px; // Reduced from 187px
+      height: 48px;
+      box-sizing: border-box;
+
+      .chars-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px; // Gap between letters
+
+        .suffix-char-item {
+          font-family: 'General Sans Variable', sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px; // Reduced from 16px
+          line-height: 20px;
+          color: #096B58; // Figma color: #096B58
+        }
+      }
+
+      .copy-icon-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .copied-toast {
+      position: absolute;
+      top: -24px;
+      background: #333;
+      color: #fff;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .email-notify-text {
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px; // Reduced from 14px
+      line-height: 16px;
+      text-align: center;
+      color: #666666;
+      width: 100%; // Spans clean available width
+      margin: 6px 0 0 0;
+
+      .email-highlight {
+        color: #666666;
+        font-weight: 600; // Render email address in bold
+      }
+    }
+  }
+
+  // Frame 1000005849
+  .note-card-frame {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 8px 12px; // Reduced from 12px 16px
+    gap: 6px; // Reduced from 8px
+    width: 100%; // Spans auto width
+    height: auto; // Let text wrap comfortably
+    background: #FBFBFB; // Figma background: #FBFBFB
+    border: 0.5px solid #D0D0D0; // Figma border: 0.5px solid #D0D0D0
+    border-radius: 8px;
+    max-width: 100%;
+
+    .note-label {
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 11px; // Reduced from 12px
+      line-height: 15px;
+      color: #343434;
+    }
+
+    .note-text {
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 11px; // Reduced from 12px
+      line-height: 15px;
+      color: #666666;
+      margin: 0;
+    }
+  }
+
+  // Frame 1000005847
+  .actions-button-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 12px; // Reduced from 16px
+    width: 100%; // Spans auto width
+    height: 48px; // Reduced from 56px
+    max-width: 100%;
+
+    @media (max-width: 440px) {
+      flex-direction: column-reverse;
+      height: auto;
+      width: 100%;
+      gap: 12px;
+
+      .btn-view-profile-custom,
+      .btn-dashboard-custom {
+        width: 100% !important;
+      }
+    }
+
+    .btn-view-profile-custom {
+      box-sizing: border-box;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 11px 22px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-radius: 8px;
+      flex: 1; // Equally distributes space
+      width: auto !important;
+      height: 48px !important; // Reduced from 56px
+      border-radius: 8px !important;
       border: none;
       cursor: pointer;
-      background-color: $primary-color;
-      color: #ffffff;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      outline: none;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      background-color: #EEF4F3 !important; // Figma background: #EEF4F3
+      color: #096B58 !important; // Figma color: #096B58
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-size: 13px !important; // Reduced from 14px
+      font-weight: 500 !important;
+      transition: all 0.25s ease;
 
       &:hover {
-        background-color: $primary-hover;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(13, 122, 95, 0.2);
+        background-color: rgba(9, 107, 88, 0.15) !important;
       }
+    }
 
-      &:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 4px rgba(13, 122, 95, 0.1);
+    .btn-dashboard-custom {
+      flex: 1; // Equally distributes space
+      width: auto !important;
+      height: 48px !important; // Reduced from 56px
+      background: #096B58 !important;
+      color: #FFFFFF !important;
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-size: 13px !important; // Reduced from 14px
+      font-weight: 500 !important;
+      border-radius: 8px !important;
+
+      &:hover {
+        background-color: #085f4e !important;
       }
     }
   }

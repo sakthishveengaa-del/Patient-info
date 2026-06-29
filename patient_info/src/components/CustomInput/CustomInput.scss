@@ -14,7 +14,7 @@
   }
 
   .custom-input-label {
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     font-weight: 600;
     color: $primary-text;
     margin-bottom: 6px;
@@ -51,7 +51,7 @@
     .input-field {
       width: 100%;
       padding: 11px 14px;
-      font-size: 0.9rem;
+      font-size: 0.96rem;
       font-weight: 500;
       color: $primary-text;
       background-color: #ffffff;
@@ -64,6 +64,11 @@
       &::placeholder {
         color: $muted-text;
         font-weight: 400;
+      }
+
+      &::-ms-reveal,
+      &::-ms-clear {
+        display: none;
       }
 
       &.with-icon {
@@ -221,7 +226,7 @@
 
     .error-message {
       color: $error-color;
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       font-weight: 500;
       margin-top: 5px;
       animation: fadeIn 0.2s ease;

@@ -1,96 +1,230 @@
 @use "../../styles/global.scss" as *;
 
 .health-records-page {
-  padding: 32px 40px;
+  padding: 0px 40px; // Figma Frame 1000005832: padding: 0px 40px
+  @media (max-width: 640px) {
+    padding: 0px 16px;
+  }
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow-y: auto;
+  box-sizing: border-box;
 
-  @media (max-width: 768px) {
-    padding: 20px 16px;
-  }
+  .page-header {
+    margin-bottom: 30px; // spacing spacer
+    width: 100%;
+    max-width: 1018px; // align header with Figma width
 
-  .info-form {
-    margin-top: 32px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    .header-text {
+      .header-title {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 18px !important;
+        line-height: 24px !important;
+        color: #000000 !important;
+      }
 
-    .form-stack {
+      .header-subtitle {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-weight: 400 !important;
+        font-size: 14px !important;
+        line-height: 19px !important;
+        color: #666666 !important;
+      }
+    }
+
+    .header-support {
       display: flex;
-      flex-direction: column;
-      gap: 28px;
-      flex-grow: 1;
-      max-width: 1000px;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      width: 157px;
+      height: 38px;
+      margin-right: 0px; // align right
+
+      .support-icon-wrapper {
+        border: none !important; // remove circular border mismatch
+        background: transparent !important;
+        width: 24px !important;
+        height: 24px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .support-icon {
+          color: #4d4d4d !important; // Figma Vector color: #4D4D4D
+          font-size: 1.3rem !important;
+        }
+      }
+
+      .support-label {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-weight: 400 !important;
+        font-size: 14px !important;
+        line-height: 19px !important;
+        color: #141414 !important;
+      }
+
+      .support-link {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+        line-height: 19px !important;
+        color: #096B58 !important;
+        text-decoration: underline !important;
+        text-underline-offset: 2px;
+      }
     }
   }
 
+  .info-form {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1018px;
+    gap: 32px; // Figma gap: 32px
+  }
+
+  // Vertical Form Stack Layout
+  .form-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px; // Figma gap: 32px
+    margin-bottom: 0px; // governed by form flex gap
+    width: 100%;
+    max-width: 1018px;
+
+    @media (max-width: 960px) {
+      gap: 24px;
+    }
+  }
+
+  // Custom File Uploader styling overrides
+  .custom-uploader-group {
+    width: 1018px !important;
+    max-width: 100%;
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; // Figma gap: 8px
+
+    .custom-uploader-label {
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal !important;
+      font-weight: 400 !important; // Figma: weight 400
+      font-size: 14px !important; // Figma: 14px
+      line-height: 19px !important;
+      color: #202020 !important;
+      margin-bottom: 0px !important;
+    }
+
+    .uploader-container {
+      box-sizing: border-box !important;
+      width: 100% !important;
+      height: 256px !important; // Figma height: 256px
+      min-height: 256px !important;
+      background: #FBFBFB !important; // Figma background: #FBFBFB
+      border: 0.5px solid #D0D0D0 !important; // Figma border: 0.5px solid #D0D0D0
+      border-radius: 8px !important; // Figma border-radius: 8px
+
+      .uploader-content {
+        padding: 0px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        .upload-icon-wrapper {
+          color: #D0D0D0 !important; // Figma Vector border: #D0D0D0
+          margin-bottom: 0px !important;
+          
+          svg {
+            width: 64px !important; // Figma width: 64px
+            height: 64px !important; // Figma height: 64px
+            stroke: #D0D0D0 !important;
+            stroke-width: 1.5px !important;
+          }
+        }
+
+        .upload-text-row {
+          font-family: 'General Sans Variable', sans-serif !important;
+          font-style: normal !important;
+          font-weight: 400 !important;
+          font-size: 14px !important; // Figma: 14px
+          line-height: 19px !important;
+          color: #17201D !important; // Figma color: #17201D
+          margin-bottom: 0px !important;
+
+          .browse-link {
+            color: #096B58 !important; // Figma color: #096B58
+            font-weight: 400 !important;
+            text-decoration: underline !important;
+          }
+        }
+
+        .upload-subtext {
+          font-family: 'General Sans Variable', sans-serif !important;
+          font-style: normal !important;
+          font-weight: 400 !important;
+          font-size: 12px !important; // Figma: 12px
+          line-height: 16px !important;
+          color: #666666 !important; // Figma: #666666
+        }
+      }
+    }
+  }
+
+  // Supported Documents Section
   .supported-docs-section {
-    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 1018px;
+    height: 52px;
 
     .supported-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #374151; // dark grey
-      margin-bottom: 12px;
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal !important;
+      font-weight: 500 !important;
+      font-size: 14px !important;
+      line-height: 19px !important;
+      color: #202020 !important;
+      margin-bottom: 0px !important;
     }
 
     .supported-list {
       display: flex;
-      flex-wrap: wrap;
-      gap: 32px;
+      flex-direction: row;
+      justify-content: flex-start;
       align-items: center;
+      padding: 0px;
+      gap: 16px; // Figma gap: 16px
+      width: 492px;
+      height: 24px;
     }
 
     .supported-item {
       display: flex;
+      flex-direction: row;
       align-items: center;
-      gap: 8px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: #4b5563; // grey text
+      padding: 0px;
+      gap: 4px; // Figma gap: 4px
+      height: 24px;
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal !important;
+      font-weight: 400 !important;
+      font-size: 14px !important;
+      line-height: 19px !important;
+      color: #343434 !important; // Figma color: #343434
 
       .supported-icon {
-        color: #9ca3af; // grey icon
+        width: 24px !important;
+        height: 24px !important;
+        color: #666666 !important; // Figma vector color: #666666
       }
     }
-  }
-
-  .uploader-container {
-    background-color: #f9fafb !important; // light grey background matching mockup
-    border: 1px dashed #d1d5db !important; // light border matching mockup
-    border-radius: 8px !important;
-    padding: 60px 40px !important; // larger padding to match mockup aspect ratio
-
-    .upload-cloud-icon {
-      color: #9ca3af !important; // grey icon matching mockup
-    }
-
-    .upload-text-row {
-      font-size: 0.9rem !important;
-      font-weight: 500 !important;
-      color: #4b5563 !important; // grey text matching mockup
-      
-      .browse-link {
-        color: $primary-color !important; // teal link
-        text-decoration: underline !important;
-      }
-    }
-
-    .upload-subtext {
-      color: #9ca3af !important;
-      font-size: 0.75rem !important;
-      margin-top: 8px !important;
-    }
-  }
-
-  .custom-uploader-label {
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    color: #4b5563 !important; // grey label matching mockup
-    margin-bottom: 8px !important;
-    display: block !important;
   }
 
   .upload-cards-container {
@@ -349,59 +483,98 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid $border-color;
-    max-width: 1000px;
     width: 100%;
+    max-width: 1018px;
+    margin-top: 0px;
+    padding-top: 24px;
+    border-top: 1px solid #E6E6E6;
 
-    .btn-skip {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 11px 22px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      background-color: #e8f4f1; // Soft green/teal tint background
-      color: $primary-color; // Premium deep teal/green
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      outline: none;
-
-      &:hover {
-        background-color: rgba(13, 122, 95, 0.14);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 10px rgba(13, 122, 95, 0.06);
-      }
-
-      &:active {
-        transform: translateY(0);
-        box-shadow: none;
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      gap: 16px;
+      width: 100%;
+      
+      .btn-skip, 
+      .right-actions {
+        width: 100%;
       }
     }
+  }
 
-    .right-actions {
-      display: flex;
-      align-items: center;
-      gap: 32px;
+  .right-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px; // Figma gap: 16px
+    height: 56px;
 
-      .btn-back {
-        background: none;
-        border: none;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #111827; // Slate-900 matching mockup text color
-        cursor: pointer;
-        padding: 8px 12px;
-        transition: all 0.2s ease;
-        outline: none;
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      gap: 12px;
+      width: 100%;
+    }
+  }
 
-        &:hover {
-          color: $primary-color;
-        }
-      }
+  // Skip for now button: Light green-tinted background, dark green/teal text
+  .btn-skip {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 128px !important; // Figma width: 128px
+    height: 56px !important; // Figma height: 56px
+    border-radius: 8px !important;
+    border: none;
+    cursor: pointer;
+    background-color: #EEF4F3 !important; // Figma background: #EEF4F3
+    color: #096B58 !important; // Figma color: #096B58
+    font-family: 'General Sans Variable', sans-serif !important;
+    font-size: 14px !important; // Figma: 14px
+    font-weight: 500 !important;
+    transition: all 0.25s ease;
+
+    &:hover {
+      background-color: rgba(9, 107, 88, 0.15) !important;
+    }
+  }
+
+  // Go Back button: Text link style
+  .btn-back {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto !important; // clean text width
+    height: 56px !important; // Figma height: 56px
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    color: #202020 !important; // Figma color: #202020
+    font-family: 'General Sans Variable', sans-serif !important;
+    font-size: 14px !important; // Figma: 14px
+    font-weight: 500 !important;
+    cursor: pointer;
+    padding: 0 12px !important;
+    transition: color 0.2s ease;
+    outline: none;
+
+    &:hover {
+      color: #096B58 !important;
+    }
+  }
+
+  .custom-btn {
+    width: 192px !important; // Figma width: 192px
+    height: 56px !important; // Figma height: 56px
+    background: #096B58 !important;
+    color: #FFFFFF !important;
+    font-family: 'General Sans Variable', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+
+    &:disabled {
+      background: #F4F4F4 !important;
+      color: #838383 !important;
     }
   }
 }

@@ -9,7 +9,7 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import CustomSelect from "../../components/CustomSelect/CustomSelect";
 import CustomFileUploader from "../../components/CustomFileUploader/CustomFileUploader";
 import CustomButton from "../../components/CustomButton/CustomButton";
-import { useProgress } from "../../context/ProgressContext";
+import { useProgress, calculateRegistrationProgress } from "../../context/ProgressContext";
 import { useForm } from "../../context/FormProvider";
 import { UploadCard } from "../../components/UploadCard/UploadCard";
 import "./InsuranceInformation.scss";
@@ -49,17 +49,11 @@ const InsuranceInformation = () => {
   });
 
   // -------------------------------------------------------------
-  // Effect: Calculate progress (Starts at 50% baseline, increases up to 60% if all 3 fields are filled)
+  // Effect: Calculate progress
   // -------------------------------------------------------------
   useEffect(() => {
-    const progressFields = ["insuranceProvider", "policyNumber"];
-    let filledCount = progressFields.filter((f) => form[f] && form[f].toString().trim() !== "").length;
-    if (form.insuranceCard && form.insuranceCard.length > 0) {
-      filledCount += 1;
-    }
-    const calculatedProgress = 50 + Math.round((filledCount / 3) * 10);
-    setProgress(calculatedProgress);
-  }, [form, setProgress]);
+    setProgress(calculateRegistrationProgress(formData, form, "InsuranceInformation"));
+  }, [formData, form, setProgress]);
 
   // -------------------------------------------------------------
   // Handler: Runs whenever any dropdown or text input changes
@@ -70,6 +64,9 @@ const InsuranceInformation = () => {
       ...prev,
       [name]: value
     }));
+    
+    // Log user input change
+    console.log("[Form Input Change] Field: " + name + ", Value: " + value);
   };
 
   // -------------------------------------------------------------
@@ -82,6 +79,11 @@ const InsuranceInformation = () => {
         ...prev,
         insuranceCard: [...(prev.insuranceCard || []), ...filesArray]
       }));
+
+      // Log upload details
+      filesArray.forEach((file) => {
+        console.log("[File Uploaded] Name: " + file.name + ", Type: " + file.type + ", Size: " + file.size + " bytes");
+      });
     }
   };
 
@@ -94,9 +96,9 @@ const InsuranceInformation = () => {
     setFormData(updatedData);
 
     console.log("=== Insurance Details Form Submission ===");
-    console.log("Insurance Provider:", form.insuranceProvider || "N/A");
-    console.log("Policy Number:", form.policyNumber || "N/A");
-    console.log("Insurance Card:", form.insuranceCard && form.insuranceCard.length > 0 ? form.insuranceCard.map(c => c.name).join(", ") : "N/A");
+    console.log("Insurance Provider: " + (form.insuranceProvider || "N/A"));
+    console.log("Policy Number: " + (form.policyNumber || "N/A"));
+    console.log("Insurance Card: " + (form.insuranceCard && form.insuranceCard.length > 0 ? form.insuranceCard.map(c => c.name).join(", ") : "N/A"));
     console.log("========================================");
 
     navigate("/health-records");
@@ -164,6 +166,10 @@ const InsuranceInformation = () => {
                     key={idx}
                     file={cardFile}
                     onRemove={() => {
+                      const removedFile = form.insuranceCard[idx];
+                      if (removedFile) {
+                        console.log("[File Removed] Name: " + removedFile.name + ", Type: " + removedFile.type + ", Size: " + removedFile.size + " bytes");
+                      }
                       setForm((prev) => {
                         const updated = prev.insuranceCard.filter((_, i) => i !== idx);
                         return {

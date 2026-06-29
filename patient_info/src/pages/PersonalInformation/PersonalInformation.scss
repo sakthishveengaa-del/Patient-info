@@ -1,84 +1,234 @@
 @use "../../styles/global.scss" as *;
 
 .personal-info-page {
+  padding: 0px 40px; // Figma Frame 1000005827: padding: 0px 40px
+  @media (max-width: 640px) {
+    padding: 0px 16px;
+  }
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  .page-header {
+    margin-bottom: 30px; // spacing spacer
+    width: 100%;
+    max-width: 1018px; // 489px * 2 + 40px gap = 1018px
+
+    .header-text {
+      .header-title {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 18px !important;
+        line-height: 24px !important;
+        color: #000000 !important;
+      }
+
+      .header-subtitle {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-weight: 400 !important;
+        font-size: 14px !important;
+        line-height: 19px !important;
+        color: #666666 !important;
+      }
+    }
+
+    .header-support {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+      width: 157px;
+      height: 38px;
+      margin-right: 0px; // align right
+
+      .support-icon-wrapper {
+        border: none !important; // remove Figma circular border mismatch
+        background: transparent !important;
+        width: 24px !important;
+        height: 24px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .support-icon {
+          color: #4d4d4d !important; // Figma Vector color: #4D4D4D
+          font-size: 1.3rem !important;
+        }
+      }
+
+      .support-label {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-weight: 400 !important;
+        font-size: 14px !important;
+        line-height: 19px !important;
+        color: #141414 !important;
+      }
+
+      .support-link {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-weight: 500 !important;
+        font-size: 14px !important;
+        line-height: 19px !important;
+        color: #096B58 !important;
+        text-decoration: underline !important;
+        text-underline-offset: 2px;
+      }
+    }
+  }
 
   .info-form {
+    margin-top: 0px;
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1018px;
+    gap: 40px; // Figma gap: 40px
   }
 
   // 2-Column Form Layout
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px 48px;
-    margin-bottom: 20px;
+    gap: 40px 40px;
+    margin-bottom: 0px;
+    width: 100%;
+    max-width: 1018px;
 
-    @media (max-width: 1024px) {
-      gap: 18px 32px;
-    }
-
-    @media (max-width: 960px) {
+    @media (max-width: 768px) {
       grid-template-columns: 1fr;
-      gap: 16px;
+      gap: 20px;
     }
   }
 
   .form-column {
     display: flex;
     flex-direction: column;
-    gap: 20px; // Spacing between individual fields
-    
-    @media (max-width: 960px) {
-      gap: 16px;
+    gap: 40px; // Figma vertical gap: 40px
+    width: 100%;
+    max-width: 100%;
+
+    @media (max-width: 1024px) {
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      gap: 20px;
+    }
+  }
+
+  // Custom Form Inputs Overrides
+  .custom-input-container,
+  .custom-select-container,
+  .date-picker-container {
+    margin-bottom: 0px;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; // Figma gap: 8px
+
+    .custom-input-label,
+    .custom-select-label,
+    .date-picker-label {
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-style: normal !important;
+      font-weight: 500 !important;
+      font-size: 14px !important; // Figma: font-size: 14px
+      line-height: 19px !important;
+      color: #202020 !important;
+      margin-bottom: 0px !important; // gap is handled by parent flex-gap
+    }
+
+    .input-wrapper,
+    .select-wrapper,
+    .date-picker-wrapper {
+      box-sizing: border-box;
+      height: 56px !important; // Figma height: 56px
+      border: 0.5px solid #D0D0D0 !important; // Figma border: 0.5px solid #D0D0D0
+      border-radius: 8px !important; // Figma border-radius: 8px
+      padding: 0 16px !important; // Figma padding: 0px 16px
+      background: #FFFFFF !important;
+
+      .input-field,
+      .select-field,
+      .date-input {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-style: normal !important;
+        font-weight: 400 !important;
+        font-size: 14px !important; // Figma font-size: 14px
+        line-height: 19px !important;
+        color: #202020 !important;
+        padding: 0 !important;
+        height: 100% !important;
+        background: transparent !important;
+        
+        &::placeholder {
+          color: #666666 !important;
+        }
+      }
+
+      .input-icon-left,
+      .select-icon-left,
+      .date-icon {
+        color: #666666 !important;
+      }
+    }
+
+    // Phone input disabled styling (Frame 348 background #F4F4F4)
+    &.phone-input-field {
+      .input-wrapper {
+        background: #F4F4F4 !important; // Figma background: #F4F4F4
+        
+        .input-field {
+          color: #838383 !important; // Figma color: #838383
+          
+          &::placeholder {
+            color: #838383 !important;
+          }
+        }
+      }
     }
   }
 
   // Banner row to align required warning banner under the first column
   .banner-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    margin-bottom: 20px;
-
-    @media (max-width: 1024px) {
-      gap: 32px;
-    }
-
-    @media (max-width: 960px) {
-      grid-template-columns: 1fr;
-      margin-bottom: 16px;
-    }
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1018px;
+    margin-bottom: 0px; // governed by form flex gap
   }
 
   // Required fields warning banner
   .required-fields-banner {
+    box-sizing: border-box;
     display: flex;
+    flex-direction: row;
     align-items: center;
+    padding: 8px 16px;
     gap: 8px;
-    background-color: #fafafa;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 10px 14px;
-    animation: fadeIn 0.4s ease;
+    width: 489px; // Figma width: 489px
+    height: 40px; // Figma height: 40px
+    background: #FBFBFB;
+    border: 0.5px solid #D0D0D0;
+    border-radius: 6px;
+    max-width: 100%;
 
     .asterisk {
-      color: $error-color;
+      color: #EF4444 !important; // Figma color: #EF4444
       font-size: 1.1rem;
       font-weight: 700;
       line-height: 1;
+      margin-top: 4px;
     }
 
     .banner-text {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: $secondary-text;
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-weight: 400 !important;
+      font-size: 14px !important; // Figma: 14px
+      line-height: 19px !important;
+      color: #141414 !important; // Figma: #141414
     }
   }
 
@@ -87,31 +237,32 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid transparent; // spacing spacer
+    max-width: 1018px;
+    margin-top: 0px;
+    padding-top: 24px;
+    border-top: 1px solid #E6E6E6;
+
+    .custom-btn {
+      width: 223px !important; // Figma width: 223px
+      height: 56px !important; // Figma height: 56px
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-weight: 500 !important;
+      font-size: 14px !important; // Figma: 14px
+      line-height: 19px !important;
+      border-radius: 8px !important;
+
+      &:disabled {
+        background: #F4F4F4 !important;
+        color: #838383 !important;
+      }
+    }
 
     @media (max-width: 640px) {
       justify-content: center;
       width: 100%;
       
       .custom-btn {
-        width: 100%; // Make button full-width on mobile
-      }
-    }
-  }
-
-  // Special Phone input styling: grey background by default (when empty/not focused)
-  .phone-input-field {
-    .input-field {
-      background-color: #f2f2f2 !important; // Forced soft light grey background to override default white styles
-
-      &:focus {
-        background-color: #ffffff !important;
-      }
-
-      &:not(:placeholder-shown) {
-        background-color: #ffffff !important;
+        width: 100% !important; // Make button full-width on mobile
       }
     }
   }

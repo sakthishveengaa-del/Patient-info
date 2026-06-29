@@ -10,11 +10,11 @@ import "./styles/global.scss";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ProgressProvider>
-        <FormProvider>
+      <FormProvider>
+        <ProgressProvider>
           <App />
-        </FormProvider>
-      </ProgressProvider>
+        </ProgressProvider>
+      </FormProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

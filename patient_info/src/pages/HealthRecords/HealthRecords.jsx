@@ -5,7 +5,7 @@ import Header from "../../components/Header/Header";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import CustomFileUploader from "../../components/CustomFileUploader/CustomFileUploader";
 import { UploadCard } from "../../components/UploadCard/UploadCard";
-import { useProgress } from "../../context/ProgressContext";
+import { useProgress, calculateRegistrationProgress } from "../../context/ProgressContext";
 import { useForm } from "../../context/FormProvider";
 import { PillIcon, BeakerIcon, ScanIcon, DocIcon } from "./components/DocumentIcons";
 import "./HealthRecords.scss";
@@ -22,13 +22,20 @@ const HealthRecords = () => {
   // Local state for uploaded health record files, initialized from context
   const [files, setFiles] = useState(formData.healthRecords || []);
 
-  // Keep progress baseline to 75% complete for this step to match mockup
+  // Calculate progress dynamically
   useEffect(() => {
-    setProgress(75);
-  }, [setProgress]);
+    setProgress(calculateRegistrationProgress(formData, { healthRecords: files }, "HealthRecords"));
+  }, [formData, files, setProgress]);
 
   const handleFileChange = (newFiles) => {
     let updated;
+    const filesArray = Array.isArray(newFiles) ? newFiles : (newFiles ? [newFiles] : []);
+    
+    // Log upload details
+    filesArray.forEach((file) => {
+      console.log("Name: " + file.name + ", Type: " + file.type + ", Size: " + file.size + " bytes");
+    });
+
     if (Array.isArray(newFiles)) {
       updated = [...files, ...newFiles];
     } else if (newFiles) {
@@ -44,6 +51,11 @@ const HealthRecords = () => {
   };
 
   const handleRemoveFile = (index) => {
+    const removedFile = files[index];
+    if (removedFile) {
+      console.log("[File Removed] Name: " + removedFile.name + ", Type: " + removedFile.type + ", Size: " + removedFile.size + " bytes");
+    }
+
     const updated = files.filter((_, i) => i !== index);
     setFiles(updated);
     setFormData((prev) => ({
@@ -72,7 +84,7 @@ const HealthRecords = () => {
           subtitle="Keep all your medical documents in one secure and convenient place."
         />
 
-        <div className="info-form" style={{ marginTop: "40px" }}>
+        <div className="info-form">
           <div className="form-stack">
             <CustomFileUploader
               label="Upload your health records"
@@ -122,7 +134,7 @@ const HealthRecords = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="form-actions" style={{ borderTop: "none", marginTop: "40px" }}>
+          <div className="form-actions">
             <button type="button" className="btn-skip" onClick={handleSkip}>
               Skip for now
             </button>

@@ -1,213 +1,564 @@
 @use "../../styles/global.scss" as *;
 
 .review-complete-page {
-  padding: 32px 40px;
+  padding: 0px 40px; // Figma Frame 1000005827: padding: 0px 40px
+  @media (max-width: 640px) {
+    padding: 0px 16px;
+  }
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow-y: auto;
+  box-sizing: border-box;
 
-  @media (max-width: 768px) {
-    padding: 20px 16px;
+  .page-header {
+    margin-bottom: 24px;
+    width: 100%;
+    max-width: 1018px; // align header with Figma width
+    
+    .header-support {
+      margin-right: 0px; // remove arbitrary margin since we align to 1018px boundary
+      
+      .support-icon-wrapper {
+        border: none !important; // remove Figma circular border mismatch
+        background: transparent !important;
+        width: 24px !important;
+        height: 24px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .support-icon {
+          color: #4d4d4d !important; // Figma Vector color: #4D4D4D
+          font-size: 1.3rem !important;
+        }
+      }
+    }
   }
 
   .info-form {
-    margin-top: 32px;
+    margin-top: 0px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1018px; // Figma Frame 1000005861 / 1000005862: width: 1018px
+    gap: 40px; // Figma Frame 1000005827 gap: 40px
   }
 
-  .review-container {
+  // Form sections containers
+  .form-section-container {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 0px; // governed by form flex gap
+    box-shadow: none;
+    width: 100%;
+    max-width: 1018px; // Figma Frame 1000005861: width: 1018px
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 24px; // Figma Frame 1000005861 / 1000005862: gap: 24px
   }
 
-  .review-section {
-    background-color: #ffffff;
-    border: 1px solid $border-color;
-    border-radius: 8px;
-    padding: 20px;
-    
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #f3f4f6;
-
-      .section-title {
-        font-size: 1.05rem;
-        font-weight: 700;
-        color: $primary-text;
-      }
-
-      .btn-edit-section {
-        background: none;
-        border: none;
-        color: $primary-color;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        cursor: pointer;
-        padding: 4px 8px;
-        border-radius: 4px;
-        transition: background-color 0.2s ease;
-
-        &:hover {
-          background-color: $primary-light;
-        }
-
-        .edit-icon {
-          font-size: 0.95rem;
-        }
-      }
-    }
-  }
-
-  .section-details-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px 20px;
-
-    @media (min-width: 600px) {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .detail-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-
-      .detail-label {
-        font-size: 0.72rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: #9ca3af;
-        font-weight: 600;
-      }
-
-      .detail-value {
-        font-size: 0.88rem;
-        font-weight: 500;
-        color: $primary-text;
-      }
-    }
-  }
-
-  .section-stack {
+  // MediConnect ID Heading Block (Frame 1000005859)
+  .id-heading-block {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-
-    .stack-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-
-      .detail-label {
-        font-size: 0.72rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        color: #9ca3af;
-        font-weight: 600;
-      }
-
-      .detail-paragraph {
-        font-size: 0.88rem;
-        color: $primary-text;
-        line-height: 1.45;
-        white-space: pre-wrap;
-        background-color: #f9fafb;
-        padding: 10px 12px;
-        border-radius: 6px;
-        border: 1px dashed $border-color;
-      }
-    }
+    gap: 8px; // Figma Frame 1000005859 gap: 8px
+    width: 100%;
+    max-width: 347px; // Figma width: 347px
   }
 
-  .section-files-list {
-    .no-files-text {
-      font-size: 0.88rem;
-      color: #9ca3af;
-      font-style: italic;
-    }
-
-    .files-summary-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-
-      @media (min-width: 600px) {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .file-summary-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 14px;
-      background-color: #f9fafb;
-      border: 1px solid $border-color;
-      border-radius: 6px;
-
-      .file-name {
-        font-size: 0.82rem;
-        font-weight: 500;
-        color: $primary-text;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        margin-right: 12px;
-      }
-
-      .file-size {
-        font-size: 0.72rem;
-        color: $secondary-text;
-        flex-shrink: 0;
-      }
-    }
+  .section-title {
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px; // Figma: font-size: 16px
+    line-height: 22px;
+    color: #141414; // Figma: color: #141414
+    margin: 0;
   }
 
-  // Security Alert Banner
-  .security-alert-box {
+  .section-subtitle {
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px; // Figma: font-size: 12px
+    line-height: 16px;
+    color: #666666; // Figma: color: #666666
+    margin: 0;
+  }
+
+  // ID Fields container (Frame 1000005860)
+  .id-fields-container {
     display: flex;
+    flex-direction: column;
+    gap: 16px; // Figma Frame 1000005860: gap: 16px
+    width: 100%;
+  }
+
+  // ID input section (Frame 1000005857)
+  .id-input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; // Figma Frame 1000005857 gap: 8px
+    width: 100%;
+  }
+
+  .id-input-label {
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px; // Figma: font-size: 14px
+    line-height: 19px;
+    color: #202020; // Figma: color: #202020
+  }
+
+  // ID Input Row (Frame 1000005816)
+  .id-input-row {
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    padding: 16px;
-    background-color: #f0fdf4;
-    border: 1px solid #bfe5da;
-    border-radius: 8px;
-    margin-top: 32px;
+    gap: 6px; // Space between input box and the status message below
+    width: 100%;
+  }
 
-    .security-icon {
-      color: $primary-color;
-      font-size: 1.4rem;
-      margin-right: 14px;
-      flex-shrink: 0;
-      margin-top: 2px;
+  // ID input group (Frame 1000005858)
+  .id-input-group {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #ffffff;
+    border: 0.5px solid #D0D0D0; // Figma border: 0.5px solid #D0D0D0
+    border-radius: 8px; // Figma border-radius: 8px
+    width: 284px; // Figma width: 284px
+    height: 56px; // Figma height: 56px
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+
+    &:focus-within {
+      border-color: #096B58;
     }
 
-    .security-text-content {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+    &.has-error {
+      border-color: $error-color;
+    }
 
-      .security-title {
-        font-size: 0.88rem;
-        font-weight: 600;
-        color: $primary-color;
+    // Frame 1000005851
+    .id-prefix-box-fixed {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 16px;
+      width: 63px; // Figma width: 63px
+      height: 56px; // Figma height: 56px
+      background: #F4F4F4; // Figma background: #F4F4F4
+      border-right: 0.5px solid #D0D0D0; // Figma border-right: 0.5px solid #D0D0D0
+      border-radius: 8px 0px 0px 8px;
+      box-sizing: border-box;
+      color: #202020; // Figma color: #202020
+      font-family: 'General Sans Variable', sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px; // Figma: font-size: 16px
+      line-height: 22px;
+      text-transform: uppercase;
+      user-select: none;
+      transition: all 0.2s ease;
+
+      &.has-error {
+        background-color: $error-color;
+        border-color: $error-color;
+        color: #FFFFFF;
+      }
+    }
+
+    // InputField under Figma auto layout
+    .id-digits-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 24px; // Figma padding: 0px 24px
+      width: 221px; // Figma width: 221px
+      height: 56px;
+      background: #FFFFFF;
+      border-radius: 0px 8px 8px 0px;
+      box-sizing: border-box;
+    }
+
+    .id-digit-box {
+      width: 12px; // match placeholder widths in figma
+      height: 32px;
+      background: none;
+      border: none;
+      border-bottom: 2.5px solid #e5e7eb; // bottom border indicator
+      outline: none;
+      text-align: center;
+      font-family: 'General Sans Variable', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px; // Figma font-size: 14px
+      line-height: 19px;
+      color: #141414; // Figma color: #141414
+      transition: all 0.2s ease;
+
+      &:focus {
+        border-bottom: 2.5px solid #14B392;
+      }
+    }
+  }
+
+  // Frame 552
+  .id-status-message {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 4px;
+    height: 24px;
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px; // Figma font-size: 14px
+    line-height: 19px;
+
+    &.error {
+      color: $error-color;
+    }
+
+    &.success {
+      color: #096B58; // Figma color: #096B58
+    }
+
+    .status-icon {
+      font-size: 1.1rem;
+      color: inherit;
+    }
+  }
+
+  // Suggestions Block (Frame 1000005856)
+  .suggestions-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; // Figma gap: 12px
+    width: 1018px;
+    max-width: 100%;
+    margin-top: 0px;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  // Frame 1000005857
+  .suggestions-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    width: 1018px;
+    max-width: 100%;
+  }
+
+  .suggestions-title {
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px; // Figma font-size: 14px
+    line-height: 19px;
+    color: #202020; // Figma color: #202020
+  }
+
+  // Frame 1103
+  .btn-refresh {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px; // Figma padding: 8px 12px
+    gap: 8px; // Figma gap: 8px
+    height: 40px; // Figma height: 40px
+    background: #EEF4F3; // Figma background: #EEF4F3
+    border-radius: 8px; // Figma border-radius: 8px
+    border: none;
+    cursor: pointer;
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px; // Figma font-size: 16px
+    line-height: 22px;
+    color: #096B58; // Figma color: #096B58
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #e1edea;
+    }
+
+    .refresh-icon {
+      font-size: 1.2rem;
+      color: #096B58;
+    }
+  }
+
+  // Frame 1130
+  .suggestions-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0px;
+    gap: 16px; // Figma gap: 16px
+    width: 1018px;
+    max-width: 100%;
+  }
+
+  // Frame 8 / Suggestion badges
+  .suggestion-badge {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px; // Figma padding: 12px 16px
+    height: 48px; // Figma height: 48px
+    background: #FBFBFB; // Figma background: #FBFBFB
+    border: 1px solid #D0D0D0; // Figma border: 1px solid #D0D0D0
+    border-radius: 8px; // Figma border-radius: 8px
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px; // Figma font-size: 14px
+    line-height: 19px;
+    color: #343434; // Figma color: #343434
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #f3f4f6;
+      border-color: #9ca3af;
+    }
+  }
+
+  // Password Grid (Frame 1114)
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 40px; // Figma gap: 16px 40px
+    max-width: 1018px;
+    width: 100%;
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-grid-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  // Password inputs overrides inside review complete page
+  .password-section {
+    .custom-input-container {
+      margin-bottom: 0px;
+      width: 100%;
+      max-width: 100%;
+
+      .custom-input-label {
+        font-family: 'General Sans Variable', sans-serif !important;
+        font-style: normal !important;
+        font-weight: 500 !important;
+        font-size: 14px !important; // Figma: font-size: 14px
+        line-height: 19px !important;
+        color: #202020 !important;
+        margin-bottom: 8px !important; // Figma gap: 8px
       }
 
-      .security-desc {
-        font-size: 0.78rem;
-        color: #1e3a34;
-        line-height: 1.4;
+      .input-wrapper {
+        box-sizing: border-box;
+        height: 56px !important; // Figma height: 56px
+        border: 0.5px solid #D0D0D0 !important; // Figma border: 0.5px solid #D0D0D0
+        border-radius: 8px !important; // Figma border-radius: 8px
+        padding: 0 16px !important; // Figma padding: 0px 16px
+        background: #FFFFFF !important;
+
+        .input-field {
+          font-family: 'General Sans Variable', sans-serif !important;
+          font-style: normal !important;
+          font-weight: 400 !important;
+          font-size: 14px !important; // Figma font-size: 14px
+          line-height: 19px !important;
+          color: #202020 !important;
+          padding: 0 !important;
+          height: 100% !important;
+        }
+
+        .input-icon-left,
+        .suffix-button {
+          color: #666666 !important;
+        }
+      }
+    }
+  }
+
+  // Checklist Block (Frame 1000005864)
+  .checklist-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 16px; // Figma gap: 16px
+    width: 100%; // Figma width: 489px
+    max-width: 100%;
+
+    @media (max-width: 640px) {
+      width: 100%;
+    }
+  }
+
+  // Frame 1122
+  .password-strength-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 4px; // Figma gap: 4px
+    width: 100%;
+    margin-top: 0px; // governed by checklist-block gap
+  }
+
+  // Frame 524
+  .strength-bar-track {
+    width: 100%;
+    height: 6px; // Figma height: 6px
+    background: #E6E6E6; // Figma background: #E6E6E6
+    border-radius: 100px; // Figma border-radius: 100px
+    overflow: hidden;
+  }
+
+  // Rectangle 89
+  .strength-bar-fill {
+    height: 6px; // Figma height: 6px
+    width: 0;
+    background: #E6E6E6;
+    border-radius: 100px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.weak {
+      width: 33%;
+      background-color: #ea580c;
+    }
+
+    &.medium {
+      width: 66%;
+      background-color: #eab308;
+    }
+
+    &.strong {
+      width: 100%;
+      background: #065F46; // Figma background: #065F46 (Very Good)
+    }
+  }
+
+  // Very Good
+  .strength-label {
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px; // Figma font-size: 14px
+    line-height: 19px;
+    text-align: left;
+    
+    &.weak {
+      color: #ea580c;
+    }
+
+    &.medium {
+      color: #d97706;
+    }
+
+    &.strong {
+      color: #065F46; // Figma color: #065F46
+    }
+  }
+
+  // Frame 1000005865
+  .rules-checklist {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px; // Figma gap: 8px
+    width: 100%;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  // Should Contain:
+  .checklist-title {
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px; // Figma font-size: 14px
+    line-height: 19px;
+    color: #202020; // Figma color: #202020
+    margin: 0;
+  }
+
+  // Frame 1000005865 rules stack
+  .rules-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px; // Figma gap: 8px between rule items
+    width: 100%;
+  }
+
+  // Frame 1000005863 (tick box and text)
+  .rule-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px; // Figma gap: 8px
+    font-family: 'General Sans Variable', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px; // Figma font-size: 14px
+    line-height: 19px;
+    transition: color 0.2s ease;
+
+    .rule-icon {
+      font-size: 1.1rem; // ~24px equivalent
+      width: 24px;
+      height: 24px;
+    }
+
+    &.default {
+      color: #666666;
+      
+      .default-icon {
+        color: #AAAAAA; // Figma background: #AAAAAA
+      }
+    }
+
+    &.satisfied {
+      color: #096B58; // Figma color: #096B58
+      
+      .satisfied-icon {
+        color: #096B58;
+      }
+    }
+
+    &.unsatisfied {
+      color: $error-color;
+      
+      .unsatisfied-icon {
+        color: $error-color;
       }
     }
   }
@@ -215,27 +566,66 @@
   // Action Buttons
   .form-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; // right aligned on desktop
     align-items: center;
-    margin-top: 40px;
-    padding-top: 24px;
+    gap: 16px;
+    margin-top: 12px; // tighter top spacing
+    padding-top: 12px; // tighter padding
     border-top: 1px solid $border-color;
+    width: 100%; // stretch all the way to the right of the main page container
 
     .btn-back {
-      background: none;
-      border: 1px solid $border-color;
-      color: $secondary-text;
-      font-size: 0.88rem;
-      font-weight: 600;
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto !important; // clean text width
+      height: 56px !important; // Figma height: 56px
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      color: #202020 !important; // Figma color: #202020
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-size: 14px !important; // Figma: 14px
+      font-weight: 500 !important;
       cursor: pointer;
-      padding: 10px 24px;
-      border-radius: 6px;
-      transition: all 0.2s ease;
+      padding: 0 12px !important;
+      transition: color 0.2s ease;
+      outline: none;
 
       &:hover {
-        color: $primary-text;
-        background-color: #f9fafb;
-        border-color: #d1d5db;
+        color: #096B58 !important;
+      }
+    }
+
+    .custom-btn {
+      width: 192px !important; // Figma width: 192px
+      height: 56px !important; // Figma height: 56px
+      background: #096B58 !important;
+      color: #FFFFFF !important;
+      font-family: 'General Sans Variable', sans-serif !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      border-radius: 8px !important;
+
+      &:disabled {
+        background: #F4F4F4 !important;
+        color: #838383 !important;
+      }
+    }
+
+    // Stack buttons on small viewports
+    @media (max-width: 640px) {
+      flex-direction: column-reverse;
+      gap: 12px;
+      padding-top: 16px;
+      align-items: stretch;
+
+      .btn-back,
+      .custom-btn {
+        width: 100% !important;
+        text-align: center;
+        justify-content: center;
       }
     }
   }

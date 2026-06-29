@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Fade from "@mui/material/Fade";
-import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 
 import Header from "../../components/Header/Header";
 import CustomTextArea from "../../components/CustomTextArea/CustomTextArea";
 import CustomButton from "../../components/CustomButton/CustomButton";
-import { useProgress } from "../../context/ProgressContext";
+import { useProgress, calculateRegistrationProgress } from "../../context/ProgressContext";
 import { useForm } from "../../context/FormProvider";
 import "./MedicalHistory.scss";
 
@@ -35,25 +34,11 @@ const MedicalHistory = () => {
   });
 
   // -------------------------------------------------------------
-  // Effect: Calculate progress (Starts at 30% baseline, adds 5% for each completed textarea field, max 50%)
+  // Effect: Calculate progress
   // -------------------------------------------------------------
   useEffect(() => {
-    const progressFields = [
-      "allergies",
-      "currentMedications",
-      "existingConditions",
-      "previousSurgeries"
-    ];
-    
-    // Count how many textareas are not empty
-    const filledCount = progressFields.filter(
-      (f) => form[f] && form[f].toString().trim() !== ""
-    ).length;
-    
-    // Progress calculation: 30% baseline + 5% per filled field
-    const calculatedProgress = 30 + filledCount * 5;
-    setProgress(calculatedProgress);
-  }, [form, setProgress]);
+    setProgress(calculateRegistrationProgress(formData, form, "MedicalHistory"));
+  }, [formData, form, setProgress]);
 
   // -------------------------------------------------------------
   // Handler: Runs whenever any textarea changes
@@ -64,6 +49,9 @@ const MedicalHistory = () => {
       ...prev,
       [name]: value
     }));
+    
+    // Log user input change
+    console.log("[Form Input Change] Field: " + name + ", Value: " + value);
   };
 
   // -------------------------------------------------------------
@@ -75,10 +63,10 @@ const MedicalHistory = () => {
     setFormData(updatedData);
 
     console.log("=== Medical History Form Submission ===");
-    console.log("Allergies:", form.allergies || "None");
-    console.log("Current Medications:", form.currentMedications || "None");
-    console.log("Existing Conditions:", form.existingConditions || "None");
-    console.log("Previous Surgeries:", form.previousSurgeries || "None");
+    console.log("Allergies: " + (form.allergies || "None"));
+    console.log("Current Medications: " + (form.currentMedications || "None"));
+    console.log("Existing Conditions: " + (form.existingConditions || "None"));
+    console.log("Previous Surgeries: " + (form.previousSurgeries || "None"));
     console.log("======================================");
 
     navigate("/insurance-information");
@@ -111,10 +99,6 @@ const MedicalHistory = () => {
         />
 
         <form onSubmit={handleSubmit} className="info-form">
-          <div className="info-banner" style={{ display: "flex", alignItems: "center", gap: "10px", padding: "12px 16px", backgroundColor: "#e6f4ea", color: "#0d7a5f", borderRadius: "8px", fontSize: "0.85rem", marginBottom: "24px", border: "1px solid #bfe5da", fontWeight: 500 }}>
-            <LocalHospitalIcon style={{ fontSize: "1.3rem" }} />
-            <span>Please list your past treatments, active medications, existing conditions, and previous surgeries.</span>
-          </div>
 
           <div className="form-stack">
             <CustomTextArea

@@ -67,7 +67,7 @@ const Sidebar = () => {
 
   // Steps configuration: defines the name, route path, and custom icon component for each registration step
   const steps = [
-    { name: "Personal Details", path: "/personal-information", icon: PersonalInfoIcon },
+    { name: "Personal Information", path: "/personal-information", icon: PersonalInfoIcon },
     { name: "Additional Information", path: "/additional-information", icon: AdditionalInfoIcon },
     { name: "Medical History", path: "/medical-history", icon: MedicalHistoryIcon },
     { name: "Insurance Information", path: "/insurance-information", icon: InsuranceIcon },
